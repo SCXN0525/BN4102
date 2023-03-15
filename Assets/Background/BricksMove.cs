@@ -16,7 +16,8 @@ public class BricksMove : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.left * speed * Time.deltaTime;
+        Debug.Log("Moving");
+        transform.position += Vector3.left * speed * Time.deltaTime;
         
         if (transform.position.x < leftEdge){
             Destroy(gameObject);
