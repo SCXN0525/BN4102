@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class GrumpyBee : MonoBehaviour
 {
-    // upon collision with the barrier Bird turns red
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        GetComponent<SpriteRenderer>().color = Color.red;
-    }
-
     // speed at which it is moving
     public float speed = 1.5f;
 

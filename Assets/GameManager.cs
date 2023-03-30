@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +24,15 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1f;
         player.enabled = true;
+    }
+    void Start() //start of new codes
+    {
+
+    }
+
+    void Update()
+    {
+
     }
 
     public void GameOver()
