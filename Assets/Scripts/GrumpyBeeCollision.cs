@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GrumpyBeeCollision : MonoBehaviour
 {
@@ -10,15 +11,25 @@ public class GrumpyBeeCollision : MonoBehaviour
     public int hearts = 3;
     public Image[] heartImages;
     public GameObject gameOverMessage;
-
+    public Transform startTransform; // Assign the start position of the Grumpy Bee to this variable
     private bool hasCollidedWithBrick = false;
+    private int score = 0;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+
+        int startingHearts = 3;
+        hearts = startingHearts;
+
+        int startingScore = 0; // Update starting score to be 0
+        score = PlayerPrefs.GetInt("score", startingScore);
+
         UpdateHearts();
         gameOverMessage.SetActive(false);
+        Debug.Log("Starting hearts: " + hearts);
+        Debug.Log("Starting score: " + score);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -39,6 +50,10 @@ public class GrumpyBeeCollision : MonoBehaviour
                 if (hearts == 0)
                 {
                     GameOver();
+                }
+                else
+                {
+                    RestartGame();
                 }
             }
         }
@@ -68,10 +83,20 @@ public class GrumpyBeeCollision : MonoBehaviour
         }
     }
 
+    void RestartGame()
+    {
+        hearts--; // Subtract one heart from the player's remaining hearts
+        PlayerPrefs.SetInt("hearts", hearts); // Save the updated hearts value to player prefs
+        UpdateHearts(); // Update the hearts UI
+        score = PlayerPrefs.GetInt("score", 0); // Update the score variable with the current score
+        PlayerPrefs.SetInt("score", score); // Save the score to player prefs
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     void GameOver()
     {
+        PlayerPrefs.SetInt("score", score); // Save the final score to player prefs
         gameOverMessage.SetActive(true);
         Time.timeScale = 0;
     }
 }
-
