@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "129502462668",
+    "firebase_url": "https://bn4102-5a59a-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "bn4102-5a59a",
+    "storage_bucket": "bn4102-5a59a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129502462668:android:475126a7e762178620f869",
+        "android_client_info": {
+          "package_name": "com.bn4102.grumpybee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "129502462668-7k1vv9grh6iabba73bqamfhd3d2q69gp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrzx-k73Qiu2jlOiNAqBvhXewYqFiuAy4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "129502462668-7k1vv9grh6iabba73bqamfhd3d2q69gp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

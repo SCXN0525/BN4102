@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class BricksMove : MonoBehaviour
 {
-    public float speed = 5f;
+    public float speed = 3.5f;
 
     private float leftEdge;
 
     private void Start()
     {
-        Debug.Log("Move in");
+        //Debug.Log("Move in");
         leftEdge = Camera.main.ScreenToWorldPoint(Vector3.zero).x - 1f;
     }
 
     private void Update()
     {
-        Debug.Log("Moving");
+        //Debug.Log("Game speed is " + speed);
+        //Debug.Log("Moving");
         transform.position += Vector3.left * speed * Time.deltaTime;
-        
-        if (transform.position.x < leftEdge){
+
+        if (transform.position.x < leftEdge)
+        {
             Destroy(gameObject);
         }
     }
+
 
 }

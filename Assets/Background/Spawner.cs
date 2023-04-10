@@ -14,7 +14,7 @@ public class Spawner : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("Spawning");
+        //Debug.Log("Spawning");
         InvokeRepeating(nameof(Spawn), spawnRate, spawnRate);
     }
 
@@ -22,10 +22,10 @@ public class Spawner : MonoBehaviour
     {
         CancelInvoke(nameof(Spawn));
     }
-
     private void Spawn()
     {
-        GameObject Bricks = Instantiate(prefab, transform.position, Quaternion.identity);
-        Bricks.transform.position += Vector3.up * Random.Range(minHeight,maxHeight);
+        // Spawn the bricks
+        GameObject bricks = Instantiate(prefab, transform.position, Quaternion.identity);
+        bricks.transform.position += Vector3.up * Random.Range(minHeight, maxHeight);
     }
 }
