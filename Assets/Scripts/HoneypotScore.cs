@@ -6,7 +6,15 @@ public class HoneypotScore : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Collision Detectedddddd");
-        ScoreSystem.instance.UpdateScore(); 
+        if (other.gameObject.CompareTag("GrumpyBee"))
+        {
+            Debug.Log("Collision detected with Player1");
+            ScoreSystem.instance.UpdateScore();
+        }
+        else if (other.gameObject.CompareTag("GreenBird"))
+        {
+            Debug.Log("Collision detected with Player2");
+            ScoreSystem.instance.UpdateScore2();
+        }
     }
 }

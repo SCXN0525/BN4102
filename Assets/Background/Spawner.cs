@@ -14,7 +14,7 @@ public class Spawner : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("Spawning");
+        //Debug.Log("Spawning");
         InvokeRepeating(nameof(Spawn), spawnRate, spawnRate);
     }
 

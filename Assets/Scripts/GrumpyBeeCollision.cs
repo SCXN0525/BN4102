@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Firebase;
+using Firebase.Database;
+using Firebase.Extensions;
 
 public class GrumpyBeeCollision : MonoBehaviour
 {
@@ -9,7 +12,17 @@ public class GrumpyBeeCollision : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public int hearts = 3;
     public Image[] heartImages;
-    public GameObject gameOverMessage;
+    public GameObject gameover;
+
+    public GameObject ReplayButton;
+
+    public GameObject Scoreboard;
+
+    public FirebaseManager FirebaseManager;
+
+    public HighscoreTable HighscoreTable;
+
+    public ScoreManager ScoreManager;
 
     private bool hasCollidedWithBrick = false;
 
@@ -18,7 +31,9 @@ public class GrumpyBeeCollision : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
         UpdateHearts();
-        gameOverMessage.SetActive(false);
+        gameover.SetActive(false);
+        ReplayButton.SetActive(false);
+        Scoreboard.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -70,8 +85,21 @@ public class GrumpyBeeCollision : MonoBehaviour
 
     void GameOver()
     {
-        gameOverMessage.SetActive(true);
+        gameover.SetActive(true);
+        ReplayButton.SetActive(true);
+
         Time.timeScale = 0;
+
+        Scoreboard.SetActive(true);
+        ScoreManager.collectionofdata();
+
+        HighscoreTable highscoreTable = FindObjectOfType<HighscoreTable>();
+        if (highscoreTable != null)
+        {
+            highscoreTable.findindatabase();
+            highscoreTable.ActivateTable();
+        }
     }
+
 }
 
