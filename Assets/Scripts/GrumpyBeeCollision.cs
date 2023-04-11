@@ -134,7 +134,7 @@ public class GrumpyBeeCollision : MonoBehaviour
         // Set the hasCollidedWithBrick flag to false
         hasCollidedWithBrick = false;
 
-        // Wait for 1 second and then resume the game
+        // Wait for 3 second and then resume the game
         StartCoroutine(ResumeGameAfterDelay(3f));
     }
     private IEnumerator ResumeGameAfterDelay(float delay)
