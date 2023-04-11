@@ -11,19 +11,14 @@ public class GrumpyBeeCollision : MonoBehaviour
     private Color originalColor;
     private SpriteRenderer spriteRenderer;
     public int hearts = 3;
+    public int score = 0;
     public Image[] heartImages;
     public GameObject gameover;
-
     public GameObject ReplayButton;
-
     public GameObject Scoreboard;
-
     public FirebaseManager FirebaseManager;
-
     public HighscoreTable HighscoreTable;
-
     public ScoreManager ScoreManager;
-
     private bool hasCollidedWithBrick = false;
 
     void Start()
@@ -42,6 +37,7 @@ public class GrumpyBeeCollision : MonoBehaviour
         if (other.gameObject.tag == "honeypot")
         {
             Destroy(other.gameObject);
+            score++;
         }
         else if (other.gameObject.tag == "brick")
         {
@@ -54,6 +50,10 @@ public class GrumpyBeeCollision : MonoBehaviour
                 if (hearts == 0)
                 {
                     GameOver();
+                }
+                else
+                {
+                    Invoke("ResetGame", 0.05f);
                 }
             }
         }
@@ -87,12 +87,9 @@ public class GrumpyBeeCollision : MonoBehaviour
     {
         gameover.SetActive(true);
         ReplayButton.SetActive(true);
-
         Time.timeScale = 0;
-
         Scoreboard.SetActive(true);
         ScoreManager.collectionofdata();
-
         HighscoreTable highscoreTable = FindObjectOfType<HighscoreTable>();
         if (highscoreTable != null)
         {
@@ -101,5 +98,49 @@ public class GrumpyBeeCollision : MonoBehaviour
         }
     }
 
+    void RestartGame()
+    {
+        // Reset the game scene
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+    public void ResetGame()
+    {
+        // Pause the game
+        Time.timeScale = 0;
+        // Reset the Grumpy Bee's position to its initial position
+        transform.position = new Vector3(0, 0, 0);
+
+        // Destroy any remaining honeypots and bricks
+        GameObject[] honeypots = GameObject.FindGameObjectsWithTag("honeypot");
+        foreach (GameObject honeypot in honeypots)
+        {
+            Destroy(honeypot);
+        }
+
+        GameObject[] bricks = GameObject.FindGameObjectsWithTag("brick");
+        foreach (GameObject brick in bricks)
+        {
+            Destroy(brick);
+        }
+
+        // Reset and update the hearts UI
+        UpdateHearts();
+
+        // Reset the Grumpy Bee's color to its original color
+        spriteRenderer.color = originalColor;
+
+        // Reset any other game state variables to their initial values
+
+        // Set the hasCollidedWithBrick flag to false
+        hasCollidedWithBrick = false;
+
+        // Wait for 1 second and then resume the game
+        StartCoroutine(ResumeGameAfterDelay(3f));
+    }
+    private IEnumerator ResumeGameAfterDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        Time.timeScale = 1;
+    }
 }
 
