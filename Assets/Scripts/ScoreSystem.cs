@@ -19,6 +19,8 @@ public class ScoreSystem : MonoBehaviour
     public GameObject Player2;
 
     public GameObject bronze;
+    public GameObject silver;
+    public GameObject gold;
 
     private void Awake()
     {
@@ -33,6 +35,8 @@ public class ScoreSystem : MonoBehaviour
         PlayerScore = 0;
         PlayerScore2 = 0;
         bronze.SetActive(false);
+        silver.SetActive(false);
+        gold.SetActive(false);
     }
 
     // Update is called once per frame
@@ -45,6 +49,8 @@ public class ScoreSystem : MonoBehaviour
         Debug.Log("Score updated: " + PlayerScore.ToString());
 
         showbronze();
+        showsilver();
+        showgold();
     }
 
     public void UpdateScore2()
@@ -68,9 +74,23 @@ public class ScoreSystem : MonoBehaviour
 
     public void showbronze()
     {
-        if (score() > 10)
+        if (score() > 4)
         {
             bronze.SetActive(true);
+        }
+    }
+    public void showsilver()
+    {
+        if (score() > 8)
+        {
+            silver.SetActive(true);
+        }
+    }
+    public void showgold()
+    {
+        if (score() > 12)
+        {
+            gold.SetActive(true);
         }
     }
 }

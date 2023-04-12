@@ -19,6 +19,7 @@ public class GrumpyBeeCollision : MonoBehaviour
     public FirebaseManager FirebaseManager;
     public HighscoreTable HighscoreTable;
     public ScoreManager ScoreManager;
+    public GameObject goImage; // new variable to reference the "GO!" image game object
     private bool hasCollidedWithBrick = false;
 
     void Start()
@@ -29,6 +30,7 @@ public class GrumpyBeeCollision : MonoBehaviour
         gameover.SetActive(false);
         ReplayButton.SetActive(false);
         Scoreboard.SetActive(false);
+        goImage.SetActive(false); // make sure the "GO!" image is initially inactive
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -100,17 +102,17 @@ public class GrumpyBeeCollision : MonoBehaviour
 
     void RestartGame()
     {
-        // Reset the game scene
+        // Reset the game scene 
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
     public void ResetGame()
     {
-        // Pause the game
+        // Pause the game 
         Time.timeScale = 0;
-        // Reset the Grumpy Bee's position to its initial position
+        // Reset the Grumpy Bee's position to its initial position 
         transform.position = new Vector3(0, 0, 0);
 
-        // Destroy any remaining honeypots and bricks
+        // Destroy any remaining honeypots and bricks 
         GameObject[] honeypots = GameObject.FindGameObjectsWithTag("honeypot");
         foreach (GameObject honeypot in honeypots)
         {
@@ -123,24 +125,34 @@ public class GrumpyBeeCollision : MonoBehaviour
             Destroy(brick);
         }
 
-        // Reset and update the hearts UI
+        // Reset and update the hearts UI 
         UpdateHearts();
 
-        // Reset the Grumpy Bee's color to its original color
+        // Reset the Grumpy Bee's color to its original color 
         spriteRenderer.color = originalColor;
 
-        // Reset any other game state variables to their initial values
+        // Reset any other game state variables to their initial values 
 
-        // Set the hasCollidedWithBrick flag to false
+        // Set the hasCollidedWithBrick flag to false 
         hasCollidedWithBrick = false;
 
-        // Wait for 3 second and then resume the game
+        // Wait for 3 second and then resume the game 
         StartCoroutine(ResumeGameAfterDelay(3f));
     }
     private IEnumerator ResumeGameAfterDelay(float delay)
     {
         yield return new WaitForSecondsRealtime(delay);
+        // Show the "GO!" image 
+        if (goImage != null)
+        {
+            goImage.SetActive(true);
+        }
         Time.timeScale = 1;
+        yield return new WaitForSeconds(2f); // add 2 second delay
+        if (goImage != null)
+        {
+            goImage.SetActive(false); // deactivate the "GO!" image
+        }
     }
 }
 
