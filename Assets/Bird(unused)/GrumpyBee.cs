@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO.Ports;
 
 public class GrumpyBee : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class GrumpyBee : MonoBehaviour
     public GameObject hardText;
     public GameObject Instructions;
     public GameObject goBack;
+
+    SerialPort data_stream = new SerialPort("COM8", 115200); //Arduino is connected to COM6 with 115200 baud rate
+    int potentiometerdata = 0;
+    int potentiometerdata1;
+    public Rigidbody rb;
 
     // Reference to the play button
     public Button playButton;
@@ -38,6 +44,7 @@ public class GrumpyBee : MonoBehaviour
         hardText.SetActive(false);
         Instructions.SetActive(false);
         goBack.SetActive(false);
+        data_stream.Open();
 
         // Disable the play button initially
         playButton.interactable = false;
@@ -110,13 +117,47 @@ public class GrumpyBee : MonoBehaviour
     {
         float moveY = 0f; // variable to store the amount of movement in the Y direction
 
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (data_stream.IsOpen)
         {
-            moveY = speed * Time.deltaTime; // move up
+            Debug.Log(data_stream.ReadLine());
+            Debug.Log(data_stream.ReadLine().GetType());
+
+            string data = data_stream.ReadLine();
+
+            potentiometerdata1 = int.Parse(data); //read serial data
+            // Debug.Log(potentiometerdata1);
+
+            //track change in potentiometer data to move the bee
+
+            if (potentiometerdata1 > potentiometerdata)
+            {
+                transform.position += Vector3.down * (potentiometerdata1 - potentiometerdata) * speed * Time.deltaTime;
+                // Debug.Log("down" + potentiometerdata1 + ',' + potentiometerdata);
+            }
+
+            else if (potentiometerdata1 < potentiometerdata)
+            {
+                transform.position += Vector3.up * (potentiometerdata - potentiometerdata1) * speed * Time.deltaTime;
+                // Debug.Log("up" + (potentiometerdata1-potentiometerdata));
+            }
+
+            potentiometerdata = potentiometerdata1;
+            // Debug.Log("new potentiometer data: " + potentiometerdata);
+
+
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+
+        else
         {
-            moveY = -speed * Time.deltaTime; // move down
+
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                moveY = speed * Time.deltaTime; // move up
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                moveY = -speed * Time.deltaTime; // move down
+            }
         }
 
         Vector3 newPosition = transform.position + new Vector3(0f, moveY, 0f); // calculate new position after movement
