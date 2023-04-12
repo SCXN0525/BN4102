@@ -12,7 +12,7 @@ public class ProgressBar : MonoBehaviour
     void Update()
     {
         timeRemaining -= Time.deltaTime; // Subtract the time passed since the last frame from the time remaining
-        float progress = 1.0f - timeRemaining / 30.0f; // Calculate the progress as a percentage of the total time
+        float progress = 1.0f - timeRemaining / 40.0f; // Calculate the progress as a percentage of the total time
         progressBar.value = progress; // Update the slider's value
 
         if (timeRemaining <= 0.0f)
