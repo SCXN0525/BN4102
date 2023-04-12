@@ -5,13 +5,13 @@ using System.IO.Ports;
 
 public class PlayButton : MonoBehaviour
 {
-    SerialPort button_data = new SerialPort("COM7", 115200);
+    SerialPort button_data = new SerialPort("COM4", 115200);
     public GameManager GameManager;
 
     void Start()
     {
         button_data.Open(); //Initialise serial stream
-        button_data.ReadTimeout = 1; // In my case, 100 was a good amount to allow quite smooth transition. 
+        button_data.ReadTimeout = 200; // In my case, 100 was a good amount to allow quite smooth transition. 
         Debug.Log("DS is open!");
     }
 

@@ -19,7 +19,7 @@ public class GrumpyBee : MonoBehaviour
     public GameObject Instructions;
     public GameObject goBack;
 
-    SerialPort data_stream = new SerialPort("COM8", 115200); //Arduino is connected to COM6 with 115200 baud rate
+    SerialPort data_stream = new SerialPort("COM3", 115200); //Arduino is connected to COM6 with 115200 baud rate
     int potentiometerdata = 0;
     int potentiometerdata1;
     public Rigidbody rb;
@@ -119,9 +119,6 @@ public class GrumpyBee : MonoBehaviour
 
         if (data_stream.IsOpen)
         {
-            Debug.Log(data_stream.ReadLine());
-            Debug.Log(data_stream.ReadLine().GetType());
-
             string data = data_stream.ReadLine();
 
             potentiometerdata1 = int.Parse(data); //read serial data

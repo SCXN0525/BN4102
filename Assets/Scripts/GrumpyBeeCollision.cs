@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Firebase;
 using Firebase.Database;
 using Firebase.Extensions;
+using UnityEngine.SceneManagement;
 
 public class GrumpyBeeCollision : MonoBehaviour
 {
@@ -100,10 +101,10 @@ public class GrumpyBeeCollision : MonoBehaviour
         }
     }
 
-    void RestartGame()
+    public void RestartGame()
     {
-        // Reset the game scene 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
     public void ResetGame()
     {
