@@ -110,7 +110,7 @@ public class GrumpyBeeCollision : MonoBehaviour
         // Pause the game 
         Time.timeScale = 0;
         // Reset the Grumpy Bee's position to its initial position 
-        transform.position = new Vector3(0, 0, 0);
+        transform.position = new Vector3(0, 2.24f, 0);
 
         // Destroy any remaining honeypots and bricks 
         GameObject[] honeypots = GameObject.FindGameObjectsWithTag("honeypot");

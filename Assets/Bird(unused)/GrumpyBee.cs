@@ -22,7 +22,7 @@ public class GrumpyBee : MonoBehaviour
     public Button playButton;
 
     // Flag to track whether a difficulty level has been selected
-    private bool difficultySelected = false;
+    public bool difficultySelected = false;
 
     public GameObject FireEasy;
     public GameObject FireMedium1;
